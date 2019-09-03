@@ -77,7 +77,6 @@ export default {
   },
   methods: {
     goto(name) {
-      console.log(this.$router);
       this.$router.push(name);
     }
   }
