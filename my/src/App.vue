@@ -64,7 +64,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  position: relative;
+
 }
 .footer .footer_col {
   display: block;
@@ -77,22 +77,39 @@ export default {
   background-color: #fff !important;
 }
 
-
-.el-menu-item {
+.footer .footer_col .title{
+  margin-top: 14px !important;
+}
+.footer .footer_col li {
+  width: 85px;
+  text-align: center;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+.footer .el-col-6 {
+  width: 93px;
+}
+.footer .el-row {
+  width: 100%;
+}
+.footer .el-menu-item {
   flex-basis: 25%;
   display:flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  font-size: 12px;
+  padding-top: 12px !important;
+  line-height: 0px !important;
+  border: none !important;
 }
 .footer .el-menu-demo{
   border: none;
   background-color: #fff !important;
-}
-.el-menu-demo{
   border: none; 
   width: 100%;
   display:flex;
   justify-content: center;
+
 }
 </style>
