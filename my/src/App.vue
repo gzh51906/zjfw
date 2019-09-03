@@ -5,7 +5,7 @@
         <el-menu class="el-menu-demo" mode="horizontal" router @select="change" >
           <el-menu-item :index="item.path" v-for="item in menu" :key="item.name">
             <i :class="item.icon"></i>
-            <p>{{item.title}}</p>
+            <p class="title">{{item.title}}</p>
           </el-menu-item>
         </el-menu>
       </el-col>
@@ -63,34 +63,43 @@ export default {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+
   position: relative;
 }
-.footer_col {
+.footer .footer_col {
+  display: block;
   position: fixed;
-  bottom: 0px;
+  bottom: -2px;
   left: 0px;
+   width: 100%!important;
+  height: 62px!important;
+  z-index: 100 !important;
+  background-color: #fff !important;
 }
-.footer_col li {
+.footer .footer_col .title{
+  margin-top: 14px !important;
+}
+.footer .footer_col li {
   width: 85px;
+  text-align: center;
   padding-left: 0px !important;
   padding-right: 0px !important;
 }
-.el-col-6 {
+.footer .el-col-6 {
   width: 93px;
 }
-.el-row {
+.footer .el-row {
   width: 100%;
 }
-.el-menu-item {
+.footer .el-menu-item {
   font-size: 12px;
+  padding-top: 12px !important;
   line-height: 0px !important;
   border: none !important;
 }
-.el-menu-demo{
+.footer .el-menu-demo{
   border: none;
-  
+  background-color: #fff !important;
 }
 </style>
