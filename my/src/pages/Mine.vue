@@ -4,7 +4,7 @@
       <i class="pic_heard el-icon-s-custom"></i>
       <span class="title_top">
         <span v-if="flag=false">xxx</span>
-        <span v-else @click="goto('login')">登录 / 注册</span>
+        <span v-else @click="goto('login')">立即登录</span>
       </span>
     </div>
     <div class="pay">
