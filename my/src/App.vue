@@ -63,34 +63,29 @@ export default {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
-  position: relative;
 }
 .footer_col {
   position: fixed;
   bottom: 0px;
   left: 0px;
 }
-.footer_col li {
-  width: 85px;
-  padding-left: 0px !important;
-  padding-right: 0px !important;
-}
-.el-col-6 {
-  width: 93px;
-}
-.el-row {
-  width: 100%;
-}
+
 .el-menu-item {
+  flex-basis: 25%;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   font-size: 12px;
   line-height: 0px !important;
   border: none !important;
 }
 .el-menu-demo{
-  border: none;
-  
+  border: none; 
+  width: 100%;
+  display:flex;
+  justify-content: center;
+
 }
 </style>
