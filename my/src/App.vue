@@ -65,7 +65,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
 
-  position: relative;
 }
 .footer .footer_col {
   display: block;
@@ -77,6 +76,7 @@ export default {
   z-index: 100 !important;
   background-color: #fff !important;
 }
+
 .footer .footer_col .title{
   margin-top: 14px !important;
 }
@@ -93,6 +93,11 @@ export default {
   width: 100%;
 }
 .footer .el-menu-item {
+  flex-basis: 25%;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   font-size: 12px;
   padding-top: 12px !important;
   line-height: 0px !important;
@@ -101,5 +106,10 @@ export default {
 .footer .el-menu-demo{
   border: none;
   background-color: #fff !important;
+  border: none; 
+  width: 100%;
+  display:flex;
+  justify-content: center;
+
 }
 </style>
