@@ -1,12 +1,12 @@
 import Vue from 'vue'
-import Home from '../components/Home.vue'
-import Cart from '../components/Cart.vue'
-import List from '../components/List.vue'
-import Detail from '../components/Detail.vue'
-import Login from '../components/Login.vue'
-import Register from '../components/Register.vue'
-import Mine from '../components/Mine.vue'
-import Discover from '../components/Discover.vue'
+import Home from '../pages/Home.vue'
+import Cart from '../pages/Cart.vue'
+import Goods from '../pages/Goods.vue'
+import Detail from '../pages/Detail.vue'
+import Login from '../pages/Login.vue'
+import Reg from '../pages/Reg.vue'
+import Mine from '../pages/Mine.vue'
+import Discover from '../pages/Discover.vue'
 
 
 
@@ -18,9 +18,9 @@ let router = new VueRouter({
         { name:'', path: '/', redirect: '/home' },
         { name:'home', path: '/home', component: Home },
         { name:'cart', path: '/cart', component: Cart },
-        { name:'list', path: '/list/:id', component: List },
+        { name:'goods', path: '/goods/:id', component: Goods },
         { name:'login', path: '/login', component: Login },
-        { name:'register', path: '/register', component: Register },
+        { name:'reg', path: '/reg', component: Reg },
         { name:'mine', path: '/mine', component: Mine},
         { name:'discover', path: '/discover', component: Discover },
         { name:'detail', path: '/detail', component: Detail },
