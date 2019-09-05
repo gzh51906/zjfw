@@ -1,7 +1,7 @@
 <template>
   <div class="reg">
     <div class="reg_top">
-      <i class="el-icon-arrow-left"></i>
+      <i class="el-icon-arrow-left back" @click="back"></i>
       <span>注册</span>
     </div>
     <div class="reg_set">
@@ -69,6 +69,22 @@ export default {
         callback();
       }
     };
+
+    var checkUsername = async (rule, value, callback) => {
+      // 发起请求校验用户名是否已被注册
+      let { data } = await this.$axios.get("http://localhost:2010/user/check", {
+        params: {
+          username: this.regForm.username
+        }
+      });
+      if (data.code === 0) {
+        callback(new Error("用户名已存在"));
+      } else {
+        //通过验证
+        callback();
+      }
+    };
+
     return {
       regForm: {
         username: "",
@@ -78,30 +94,40 @@ export default {
       rules: {
         username: [
           { required: true, message: "请输入用户名", trigger: "blur" },
+          { validator: checkUsername, trigger: "blur" },
           { min: 3, max: 10, message: "长度在 3 到 10个字符", trigger: "blur" }
         ],
         pass: [
           //validator：是个函数
           { validator: pass, trigger: "blur" },
+          { min: 6, max: 18, message: "长度在 6 到 18个字符", trigger: "blur" },
           { required: true, message: "请输入密码", trigger: "blur" }
         ],
         checkPass: [
           { validator: checkPass, trigger: "blur" },
-          { required: true, message: "请再次输入密码", trigger: "blur" }
         ]
       }
     };
   },
   methods: {
     gotoReg() {
-      this.$refs['regForm'].validate(valid => {
+      this.$refs["regForm"].validate( async valid => {
         if (valid) {
-          this.$router.push('/login')
-        } else {
+          let {data} = await this.$axios.post('http://localhost:2010/user/reg',{
+            username: this.regForm.username,
+            password:this.regForm.pass,
+          })
 
+          if(data.code === 1 ){
+            this.$router.push("/login");
+          }
+        } else {
           return false;
         }
       });
+    },
+    back() {
+      this.$router.push("/login");
     }
   }
 };
@@ -148,5 +174,9 @@ export default {
   width: 100%;
   background-color: #ff2d51;
   color: #fff;
+}
+.back {
+  font-size: 14px;
+  font-weight: 700;
 }
 </style>

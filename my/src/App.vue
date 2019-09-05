@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <el-row class="footer" :gutter="24">
+    <el-row class="footer" :gutter="24" v-if="$route.meta.showFooter">
       <el-col class="footer_col" :span="24">
-        <el-menu class="el-menu-demo" mode="horizontal" router @select="change" >
+        <el-menu class="el-menu-demo" mode="horizontal" router @select="change">
           <el-menu-item :index="item.path" v-for="item in menu" :key="item.name">
             <i :class="item.icon"></i>
             <p class="title">{{item.title}}</p>
@@ -64,20 +64,19 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-
 }
 .footer .footer_col {
   display: block;
   position: fixed;
   bottom: -2px;
   left: 0px;
-   width: 100%!important;
-  height: 62px!important;
+  width: 100% !important;
+  height: 62px !important;
   z-index: 100 !important;
   background-color: #fff !important;
 }
 
-.footer .footer_col .title{
+.footer .footer_col .title {
   margin-top: 14px !important;
 }
 .footer .footer_col li {
@@ -94,7 +93,7 @@ export default {
 }
 .footer .el-menu-item {
   flex-basis: 25%;
-  display:flex;
+  display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
@@ -103,13 +102,12 @@ export default {
   line-height: 0px !important;
   border: none !important;
 }
-.footer .el-menu-demo{
+.footer .el-menu-demo {
   border: none;
   background-color: #fff !important;
-  border: none; 
+  border: none;
   width: 100%;
-  display:flex;
+  display: flex;
   justify-content: center;
-
 }
 </style>

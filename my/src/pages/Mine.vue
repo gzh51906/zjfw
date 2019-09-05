@@ -1,11 +1,14 @@
 <template>
-  <div class="centent">
+  <div class="centent" v-if="$route.meta.invisible">
     <div class="ChatHead">
       <i class="pic_heard el-icon-s-custom"></i>
-      <span class="title_top">
-        <span v-if="flag=false">xxx</span>
-        <span v-else @click="goto('login')">立即登录</span>
-      </span>
+      <div class="title_top">
+        <span class="user">{{username}}</span>
+        <p class="logout">
+          <i class="el-icon-warning-outline"></i>
+          <span @click="logout">退出登录</span>
+        </p>
+      </div>
     </div>
     <div class="pay">
       <p v-for="item in pay" :key="item.pay_id" class="pay_for">
@@ -34,7 +37,7 @@
     </div>
     <div class="serve">
       <h3>个人服务</h3>
-       <div v-for="item in serve" :key="item.serve_id" class="serve_self">
+      <div v-for="item in serve" :key="item.serve_id" class="serve_self">
         <i :class="item.icon"></i>
         <br />
         <span>{{item.title}}</span>
@@ -47,6 +50,7 @@
 export default {
   data() {
     return {
+      username: "",
       flag: true,
       pay: [
         { pay_id: 1, title: "待付款", icon: "el-icon-wallet" },
@@ -60,9 +64,8 @@ export default {
         { account_id: 2, title: "充值卡", icon: "el-icon-bank-card" },
         { account_id: 3, title: "我的红包", icon: "el-icon-message" },
         { account_id: 4, title: "优惠券", icon: "el-icon-s-ticket" }
-        
       ],
-      serve:[
+      serve: [
         { serve_id: 1, title: "账单明细", icon: "el-icon-s-order" },
         { serve_id: 2, title: "地址管理", icon: "el-icon-add-location" },
         { serve_id: 3, title: "我的消息", icon: "el-icon-message" },
@@ -76,9 +79,24 @@ export default {
     };
   },
   methods: {
-    goto(name) {
-      this.$router.push(name);
+    logout() {
+      this.$store.commit("logout");
+      this.$router.push("/login");
     }
+  },
+  created() {
+    //  console.log('---state---',this.$store.state);
+      console.log("------", this.$store);
+    // let username = this.$store.state.person;
+    // console.log("------", username);
+    // this.username = username;
+    // console.log('+++++++',this.$store.commit('change'));
+    
+    let username = localStorage.getItem('username');
+    console.log('ok1-----',username);
+    
+    this.username = username
+    console.log('ok2-----',this.username);
   }
 };
 </script>
@@ -88,8 +106,9 @@ export default {
   padding: 0;
   box-sizing: border-box;
 }
-body,html{
-  background-color: #F1F1F1;
+body,
+html {
+  background-color: #f1f1f1;
 }
 .ChatHead {
   width: 100%;
@@ -109,11 +128,22 @@ body,html{
 }
 .title_top {
   float: left;
+  width: 290px;
   margin-left: 10px;
   line-height: 60px;
 }
 .title_top span {
   color: #fff;
+  font-size: 24px;
+}
+
+.logout {
+  display: block;
+  float: right;
+}
+.logout > span {
+  color: black;
+  font-size: 16px;
 }
 .pay {
   width: 95%;
@@ -159,12 +189,12 @@ body,html{
   height: 40px;
   margin-top: 20px;
 }
-.account span,.serve_self span {
+.account span,
+.serve_self span {
   display: inline-block;
   margin-left: 10px;
   font-size: 12px;
   color: #000;
-
 }
 .account .money {
   margin-left: 10px;
@@ -177,13 +207,15 @@ body,html{
   border-left: 1px solid #6666;
   margin-left: 20px;
 }
-.account_to,.serve_self {
+.account_to,
+.serve_self {
   float: left;
   text-align: center;
   margin-top: 26px;
   margin-left: 9%;
 }
-.account_to > i,.serve_self>i {
+.account_to > i,
+.serve_self > i {
   font-size: 26px;
   margin-left: 9px;
 }
@@ -196,22 +228,20 @@ body,html{
   position: absolute;
   top: 425px;
   background-color: #fff;
-
-  
 }
 .serve h3 {
   margin-left: 10px;
   margin-top: 10px;
 }
-.serve_self{
+.serve_self {
   margin-left: 6%;
 }
-.di{
+.di {
   width: 100%;
-  height: 80px;
+  height: 35px;
   position: absolute;
   top: 735px;
-  
-  background-color: #F1F1F1;
+
+  background-color: #f1f1f1;
 }
 </style>

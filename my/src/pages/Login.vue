@@ -2,21 +2,44 @@
   <div class="login">
     <div class="login_content">
       <h2>登录找家纺</h2>
+      <span class="close" @click="close">X</span>
       <div class="setter">
-        <div class="seeter_cont">
+        <el-form
+          :model="loginForm"
+          status-icon
+          :rules="rules"
+          ref="loginForm"
+          label-width="20px"
+          class="demo-loginForm"
+        >
           <i class="el-icon-user"></i>
-          <el-input class="setInp" v-model="input" placeholder="请输入账号"></el-input>
-        </div>
-        <div class="seeter_cont">
+          <el-form-item prop="username">
+            <el-input
+              type="text"
+              v-model="loginForm.username"
+              autocomplete="off"
+              placeholder="请输入用户名"
+            ></el-input>
+          </el-form-item>
           <i class="el-icon-lock"></i>
-          <el-input class="setInp" placeholder="输入密码(至少6位数)" v-model="psw" show-password></el-input>
-        </div>
+          <el-form-item prop="pass">
+            <el-input
+              type="password"
+              v-model="loginForm.pass"
+              autocomplete="off"
+              placeholder="输入密码"
+            ></el-input>
+          </el-form-item>
+        </el-form>
         <div class="orther">
           <span class="orther_reg" @click="goto('reg')">立即注册</span>
           <span class="orther_pass">忘记密码</span>
         </div>
-        <input class="btn" type="button" value="登录">
-        <span class="notes">绑定后即为同意家纺的<b>《使用协议》</b></span>
+        <el-button @click="gotoLogin">登录</el-button>
+        <span class="notes">
+          绑定后即为同意家纺的
+          <b>《使用协议》</b>
+        </span>
       </div>
     </div>
   </div>
@@ -24,14 +47,72 @@
 <script>
 export default {
   data() {
+    var pass = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("请输入密码"));
+      } else {
+        if (this.loginForm.checkPass !== "") {
+          this.$refs.loginForm.validateField("checkPass");
+        }
+        callback();
+      }
+    };
+
     return {
-      input: "",
-      psw: ""
-    }
+      loginForm: {
+        username: "",
+        pass: "",
+        checkPass: ""
+      },
+      rules: {
+        username: [
+          { required: true, message: "请输入用户名", trigger: "blur" }
+        ],
+        pass: [
+          //validator：是个函数
+          { validator: pass, trigger: "blur" },
+          { required: true, message: "请输入密码", trigger: "blur" }
+        ]
+      }
+    };
   },
-   methods: {
+
+  methods: {
     goto(name) {
       this.$router.push(name);
+    },
+    gotoLogin() {
+      this.$refs["loginForm"].validate(async valid => {
+        if (valid) {
+          // hard code
+          let { data } = await this.$axios.post("http://localhost:2010/user/login",{
+            username: this.loginForm.username,
+            password: this.loginForm.pass
+          });
+          if (data.code === 1) {
+            let person = this.loginForm.username;
+            let targetUrl = this.$route.query.targetUrl || "/mine";
+            this.$router.push(targetUrl);
+            // this.$router.push({name:"mine",params:{id:person}});
+            // console.log('----id----',person);
+            // console.log(this.$store.state);
+            // this.$store.commit('change',person)
+            
+            
+            
+            localStorage.setItem("authorization", data.data.authorization);
+            localStorage.setItem("username", data.data.username);
+          } else {
+            alert("账号或密码错误");
+          }
+        } else {
+          console.log("error submit!!");
+          return false;
+        }
+      });
+    },
+    close() {
+      this.$router.push("/home");
     }
   }
 };
@@ -43,6 +124,9 @@ export default {
   padding-top: 50px;
   background-color: #000;
 }
+.login_tip {
+  color: red;
+}
 .login_content {
   width: 80%;
   height: 350px;
@@ -53,32 +137,42 @@ export default {
   border-radius: 10px;
 }
 .login_content h2 {
+  display: inline-block;
   margin-left: 8%;
+}
+.close {
+  float: right;
+  margin-right: 20px;
+  margin-top: -10px;
+  color: #666;
 }
 .setter {
   margin-top: 25px;
-  width: 80%;
+  width: 91%;
   height: 80%;
-  margin-left: 20px;
+  margin-left: 10px;
   text-align: center;
 }
 .setter i {
   display: inline-block;
+  font-size: 26px;
+  line-height: 40px;
+  color: #6666;
 }
 .setInp {
   width: 80%;
   margin-left: 10px;
 }
-.seeter_cont {
+.setter_cont {
   margin-top: 5px;
   border-bottom: 1px solid #f1f1f1;
 }
-.seeter_cont i {
+.setter_cont i {
   font-size: 26px;
   line-height: 40px;
   color: #6666;
 }
-.seeter_cont .el-input__inner {
+.setter .el-input__inner {
   border: none;
 }
 .orther {
@@ -92,22 +186,32 @@ export default {
 .orther_pass {
   float: right;
 }
-.btn{
+.btn {
   margin-top: 20px;
   width: 100%;
   height: 40px;
   border-radius: 20px;
   border: none;
-  background-color: #FF2D51;
+  background-color: #ff2d51;
   color: #fff;
   font-size: 12px;
   margin-bottom: 20px;
 }
-.notes{
+.notes {
   font-size: 12px;
-
 }
-.notes b{
-  color: #FF2D51
+.notes b {
+  color: #ff2d51;
+}
+.login .el-button {
+  width: 100%;
+  background-color: #ff2d51;
+  color: #fff;
+  margin-top: 15px;
+}
+.login .el-form-item {
+  display: inline-block;
+
+  border-bottom: 1px solid #f1f1f1;
 }
 </style>
