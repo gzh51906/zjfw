@@ -1,20 +1,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import common from './common'
+import cart from './cart'
 Vue.use(Vuex)
 let store = new Vuex.Store({
     modules:{
-        common
+        common,
+        cart
     },
-    // state:{
-    //     person:'jessica'
-    // },
-    // mutations:{
-    //     change(state){
-    //         // console.log('ok');
-            
-            
-    //     }
-    // }
+  
 })
 export default store;

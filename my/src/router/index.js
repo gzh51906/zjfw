@@ -18,12 +18,12 @@ let router = new VueRouter({
         { name: '', path: '/', redirect: '/home' },
         { name: 'home', path: '/home', component: Home, meta: { showFooter: true } },
         { name: 'cart', path: '/cart', component: Cart, meta: { showFooter: true, invisible: true } },
-        { name: 'goods', path: '/goods', component: Goods },
+        { name: 'goods', path: '/goods', component: Goods},
         { name: 'login', path: '/login', component: Login },
         { name: 'reg', path: '/reg', component: Reg },
         { name: 'mine', path: '/mine', component: Mine, meta: { showFooter: true, invisible: true } },
         { name: 'discover', path: '/discover', component: Discover, meta: { showFooter: true } },
-        { name: 'detail', path: '/detail/:id', component: Detail },
+        { name: 'detail', path: '/detail/:id', component: Detail},
     ]
 })
 router.beforeEach((to, from, next) => {
