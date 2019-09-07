@@ -85,18 +85,8 @@ export default {
     }
   },
   created() {
-    //  console.log('---state---',this.$store.state);
-      console.log("------", this.$store);
-    // let username = this.$store.state.person;
-    // console.log("------", username);
-    // this.username = username;
-    // console.log('+++++++',this.$store.commit('change'));
-    
     let username = localStorage.getItem('username');
-    console.log('ok1-----',username);
-    
     this.username = username
-    console.log('ok2-----',this.username);
   }
 };
 </script>

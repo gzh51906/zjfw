@@ -60,8 +60,8 @@ export default {
 
     return {
       loginForm: {
-        username: "",
-        pass: "",
+        username: "admin",
+        pass: "123456",
         checkPass: ""
       },
       rules: {
@@ -69,7 +69,6 @@ export default {
           { required: true, message: "请输入用户名", trigger: "blur" }
         ],
         pass: [
-          //validator：是个函数
           { validator: pass, trigger: "blur" },
           { required: true, message: "请输入密码", trigger: "blur" }
         ]
@@ -82,26 +81,24 @@ export default {
       this.$router.push(name);
     },
     gotoLogin() {
+
+      
       this.$refs["loginForm"].validate(async valid => {
+
         if (valid) {
           // hard code
           let { data } = await this.$axios.post("http://localhost:2010/user/login",{
             username: this.loginForm.username,
             password: this.loginForm.pass
           });
+
           if (data.code === 1) {
             let person = this.loginForm.username;
             let targetUrl = this.$route.query.targetUrl || "/mine";
-            this.$router.push(targetUrl);
-            // this.$router.push({name:"mine",params:{id:person}});
-            // console.log('----id----',person);
-            // console.log(this.$store.state);
-            // this.$store.commit('change',person)
-            
-            
-            
+            this.$router.push(targetUrl); 
             localStorage.setItem("authorization", data.data.authorization);
             localStorage.setItem("username", data.data.username);
+
           } else {
             alert("账号或密码错误");
           }
