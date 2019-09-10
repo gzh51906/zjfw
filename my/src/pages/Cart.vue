@@ -3,8 +3,9 @@
         <h3 class="header">购物车</h3>
         <div class="main">
             <div class="goodItem" v-for="item in cartlist" :key="item.goods_id"> 
-                <!-- <el-table-column  class="select"  type="selection" width="55"> </el-table-column>    -->
-                <el-checkbox class="select" v-model="item.checked" @click.native="changeCheck(item.goods_id)"></el-checkbox>         
+              
+                <!-- <el-checkbox class="select" v-model="item.checked" ref="select" @click.native="changeCheck(item.goods_id)"></el-checkbox>          -->
+                 <input type="checkbox" class="select"  ref="select" v-model="item.checked" @click="changeCheck(item.goods_id)" />                        
                  <img :src="item. goods_image_url"> 
                  <h3>                   
                      <p class="title">{{item.goods_name}}</p>
@@ -17,7 +18,6 @@
                        label="描述文字"></el-input-number>                
                  </h3>
                  <span>
-                    <!-- <i class="el-icon-edit-outline"></i> -->
                     <i  @click="remove(item.goods_id)" class="el-icon-delete"></i> 
                  </span>            
             </div>                    
@@ -25,7 +25,7 @@
         <div class="bottom">
              <!-- <el-table-column  class="select"  type="selection" width="55">全选</el-table-column> -->
              <!-- <h4><el-checkbox class="select" @click.native="allSelect" v-model="checked" >全选</el-checkbox></h4> -->
-             <h4><input @click="allSelect" type="checkbox" v-model="checked" class="select" >全选</h4>
+             <h4><input @click="allSelect" type="checkbox" v-model="checked" ref="allselect" class="select" >全选</h4>
              <span>总计<b class="count">{{totalQty}}</b>件商品</span>
              <p>合计&yen;<span class="price">{{totalPrice}}</span></p>
              <h3 @click="check">结算</h3>
@@ -53,27 +53,23 @@ export default {
           return this.$store.getters.totalPrice.toFixed(2)
         }
     },
-    created(){
-        //console.log(this.$store.state.cart.cartlist)
-       //获取商品路径
-       // console.log(this.$route.params,"cart");
-    },
     methods:{
        //修改商品选中状态
-       changeCheck(id){
-         this.$store.commit('changeCheck');
+       changeCheck(id){      
+        this.$store.commit('changeCheck');
+        var select = this.$refs.select;
+        //每个单选框都为全选时才使全选框选中
+        var allselect =  select.every((item)=>{
+             return  item.checked == true;
+         });
          
          //改变全选框状态
-         //计算复选框的选中个数
-         var num = 0;
-         var cartlist =  this.$store.state.cart.cartlist; 
-         var select = cartlist.every((item)=>{
-             return  item.checked == true;
-         })
-        
-         //有商品取消选中
-         
-        //  console.log(this.checked,"all");
+        if(allselect){
+            
+            this.checked = true;
+        }else{
+            this.checked = false;
+        }        
        },
        //全选
        allSelect(){
@@ -89,6 +85,7 @@ export default {
        //修改商品数量
        changeQty(qty,id){
          this.$store.commit('changeQty',{qty,id})
+
        },
        check(){
           console.log(this.$store.state.cart.cartlist);
@@ -129,6 +126,7 @@ export default {
      flex:2;
      width:100px;
      height:100px;
+     margin-left:5px;
 }
 .cart .main .goodItem h3{
     flex:4;
@@ -158,10 +156,11 @@ export default {
 }
 
 .cart .select{
-    flex:1;
+   
     color:#FE385C;
     margin-right:3px;
-    /* font-size:12px; */
+    width: 14px;
+    height: 14px;
     }
 .cart .bottom{
     background:#fff;

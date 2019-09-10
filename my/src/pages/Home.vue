@@ -60,8 +60,8 @@
     </div>
     <div class="lunbo" style="line-height: 100px;">
       <el-carousel :interval="2000">
-        <el-carousel-item v-for="item in recommend" :key="item.goods_id">
-          <img :src="item.goods_image_url" />
+        <el-carousel-item v-for="item in Recommend" :key="item._id">
+          <img :src="item.imgurl"   @click="goto(item._id)" />
         </el-carousel-item>
       </el-carousel>
     </div>
@@ -118,8 +118,8 @@
     </div> -->
     <div class="ho-div3" style="background-color: #ffff;">
       <el-carousel :interval="2000" type="card" :autoplay="false">
-        <el-carousel-item v-for="item in recommend" :key="item.goods_id">
-          <img :src="item.goods_image_url" />
+        <el-carousel-item v-for="item in recommend" :key="item._id">
+          <img :src="item.imgurl" @click="goto(item._id)" />
         </el-carousel-item>
       </el-carousel>
     </div>
@@ -191,7 +191,9 @@
        </el-col>
         </el-col>
       </el-row>-->
-      <div class="goodsItem">
+
+      <!-- 服务器代理 -->
+      <!-- <div class="goodsItem">
         <div>
           <div v-for="item in goodslist" :key="item.goods_id">
             <div
@@ -203,7 +205,6 @@
               <img :src="item.goods_image_url" />
               <p class="goodname">{{item.goods_name}}</p>
               <p class="subname">{{item.goods_subname}}</p>
-              <!-- <p class="subname">{{item.subtitle}}</p > -->
               <p>
                 <span>鲜品</span>
                 <span>代发</span>
@@ -215,7 +216,28 @@
             </div>
           </div>
         </div>
+      </div> -->
+      <!-- 数据库请求 -->
+       <!-- 数据库请求渲染 -->
+       <div class="goodsItem">     
+          <div
+              v-for="item in goodslist"   :key="item._id"
+            class="item"    @click="goto(item._id)" >
+            <!-- <img :src= require ("../"+ item.imgurl  )/> -->
+             <img :src="item.imgurl" />
+            <p class="goodname">{{item.title}}</p>
+            <p class="subname">{{item.subname}}</p>
+            <p>
+              <span>鲜品</span>
+              <span>代发</span>
+            </p>
+            <p>
+              {{item.price}}
+              <i>{{item.surf}}人浏览</i>
+            </p>
+          </div> 
       </div>
+
     </div>
   </div>
 </template>
@@ -235,20 +257,32 @@ export default {
   //  this.goodslist = data.datas.item_list
 
   //    })
+   //服务器代理
   async created() {
-    let {
-      data: { datas }
-    } = await this.$axios.get(
-      "http://api.zhaojiafang.com/v1/goods/goodslist?AppVersion=3.3&Format=json&SystemName=H5&brandid=&curpage=1&gc_id=1815&key=&keyword=&maxprice=&minprice=&order=0&page=10&storeid=1&timestamp=1567606495567&Sign=fe822b0a744463f5f8180146f0792ab2"
-    );
-    this.goodslist = datas;
-    this.recommend = datas;
-    // console.log(datas);
+  //   let {
+  //     data: { datas }
+  //   } = await this.$axios.get(
+  //     "http://api.zhaojiafang.com/v1/goods/goodslist?AppVersion=3.3&Format=json&SystemName=H5&brandid=&curpage=1&gc_id=1815&key=&keyword=&maxprice=&minprice=&order=0&page=10&storeid=1&timestamp=1567606495567&Sign=fe822b0a744463f5f8180146f0792ab2"
+  //   );
+  //    this.goodslist = datas;
+  //   this.recommend = datas;
+   
+  // },
+  //数据库请求
+        let  {data: {data }} = await this.$axios.get(
+              "http://localhost:2010/goodslist/getData");
+                      
+               this.goodslist = data;
+               this.Recommend = data.slice(4,8);
+               this.recommend = data.slice(0,4);
+              //  console.log(this.Recommend);
   },
+   
   // },
   data() {
     return {
-      recommend: [],
+      Recommend:[], //轮播图1
+      recommend: [], //轮播图2
       goodslist: [],
       input: "",
       // 数组名字 数组里面有对象

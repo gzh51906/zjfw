@@ -34,19 +34,16 @@
              </div>
     </div>-->
 
-    <div class="goodsItem">
+     <!-- 服务器代理数据渲染 -->
+    <!-- <div class="goodsItem">
       <div>
         <div v-for="item in goodslist" :key="item.goods_id">
           <div
-            v-for="item in goodslist"
-            :key="item.goods_id"
-            class="item"
-            @click="goto(item.goods_id)"
-          >
+            v-for="item in goodslist"   :key="item.goods_id"
+            class="item"    @click="goto(item.goods_id)" >
             <img :src="item.goods_image_url" />
             <p class="goodname">{{item.goods_name}}</p>
             <p class="subname">{{item.goods_subname}}</p>
-            <!-- <p class="subname">{{item.subtitle}}</p> -->
             <p>
               <span>鲜品</span>
               <span>代发</span>
@@ -58,27 +55,44 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
+
+    <!-- 数据库请求渲染 -->
+       <div class="goodsItem">     
+          <div
+              v-for="item in goods"   :key="item._id"
+            class="item"    @click="goto(item._id)" >
+            <!-- <img :src= "getImg(item.imgurl)"/> -->
+             <img :src="item.imgurl" />
+            <p class="goodname">{{item.title}}</p>
+            <p class="subname">{{item.subname}}</p> 
+            <p>
+              <span>鲜品</span>
+              <span>代发</span>
+            </p>
+            <p>
+              {{item.price}}
+              <i>{{item.surf}}人浏览</i>
+            </p>
+          </div> 
+      </div>
+  
+
   </div>
+  
+
 </template>
 <script>
 export default {
   data() {
     return {
-      goodslist: [],
-      data: {}
+      goodslist: [], //服务器代理的数据
+      goods:[], //数据库请求的数据
+      data: {}  //
     };
-  },
-  // async created(){
-  //     console.log(this.$route.params);
-  //     let{data:{datas}}= await this.$axios.get("http://api.zhaojiafang.com/v1/goods/goodslist?AppVersion=3.3&Format=json&SystemName=H5&brandid=&curpage=1&gc_id=1815&key=&keyword=&maxprice=&minprice=&order=0&page=10&storeid=1&timestamp=1567606495567&Sign=fe822b0a744463f5f8180146f0792ab2")
-  //     this.data = datas;
-  //     console.log(datas);
-  // },
-
-  //链接1
-  //   let{data:{datas}} = await this.$axios.get('http://api.zhaojiafang.com/v1/index/likegoods?AppVersion=3.3&Format=json&SystemName=H5&curpage=1&key=&keyword=%E5%85%A8%E9%83%A8&page=10&storeid=1&timestamp=1567581780213&Sign=ab1e440ab1ee945c860d81673d3fad85' );
-  //   this.goodslist = datas.item_list;
+   },
+  
+  
   //链接2
   async created() {
     let {
@@ -87,12 +101,25 @@ export default {
       "http://api.zhaojiafang.com/v1/goods/goodslist?AppVersion=3.3&Format=json&SystemName=H5&brandid=&curpage=1&gc_id=1815&key=&keyword=&maxprice=&minprice=&order=0&page=10&storeid=1&timestamp=1567606495567&Sign=fe822b0a744463f5f8180146f0792ab2"
     );
     this.goodslist = datas;
+  
+    //连接数据库
+    let {data: {data }} = await this.$axios.get(
+      "http://localhost:2010/goodslist/getData");
+       this.goods = data;
   },
 
   methods: {
     goto(id) {
+      console.log(id);
       this.$router.push({ name: "detail", params: { id } });
     },
+    //调用require引入本地图片
+    // getImg(imgurl){
+    //   let  url = require('../imgs'+imgurl);
+    //   console.log(url);
+    //  //
+    //  return url;
+    // },
     back() {
       this.$router.push({ name: "home" });
     }
