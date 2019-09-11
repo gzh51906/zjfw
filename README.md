@@ -1,22 +1,30 @@
 #项目名称:找家纺网
 ---------
-演示：
+*官网http://h5.zhaojiafang.com/home 
 
->>*官网http://h5.zhaojiafang.com/home 
+*WebApp上线地址：http://47.95.146.227:2009
 
->>*WebApp上线地址：http://47.95.146.227:2009
-
->>*后台管理系统地址：http://47.95.146.227:2010（账号test，密码12345）
+*后台管理系统地址：http://47.95.146.227:2010（账号test，密码12345）
 
 git仓库地址
 
->>*github地址：https://github.com/gzh51906/zjfw
+*github地址：https://github.com/gzh51906/zjfw 
 
 团队与分工
 组长：张俊
 组员：汤宇 姚美利
 负责模块说明：
 ----------------
+*技术栈：vue2.x + vue-router + vue -cli + Vuex + axios + VantUI +  git + eleementui + node + mongodb
+
+*张俊：负责 项目搭建、项目分配、合并解决冲突 爬取数据  负责首页开发 传参到详情页面 构建node服务器
+
+*姚美丽：负责列表页，详情页 ，购物车静态页面以及对接api接口实现页面渲染，结合vuex实现购物车逻辑
+
+*汤于：负责页面注册和登录，后端api的编写，以及后台管理系统的实现
+
+项目目录
+-----------------------------------
 ├─assets
 ├─imgs
 │  └─ser
@@ -318,3 +326,7 @@ git仓库地址
 │      └─utils
 ├─pages
 ├─router
+
+---------------------
+项目页截图
+-----------
