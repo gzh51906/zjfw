@@ -1,16 +1,22 @@
-项目名称:找家纺网
-*演示：
-*官网http://h5.zhaojiafang.com/home
-*WebApp上线地址：http://47.95.146.227:2009
-*后台管理系统地址：http://47.95.146.227:2010（账号test，密码12345）
+#项目名称:找家纺网
+---------
+演示：
+
+>>*官网http://h5.zhaojiafang.com/home 
+
+>>*WebApp上线地址：http://47.95.146.227:2009
+
+>>*后台管理系统地址：http://47.95.146.227:2010（账号test，密码12345）
+
 git仓库地址
-* github地址：https://github.com/gzh51906/zjfw
+
+>>*github地址：https://github.com/gzh51906/zjfw
 
 团队与分工
 组长：张俊
 组员：汤宇 姚美利
 负责模块说明：
-
+----------------
 ├─assets
 ├─imgs
 │  └─ser
