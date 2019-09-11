@@ -330,6 +330,4 @@ git仓库地址
 ---------------------
 项目页截图
 -----------
-!+[](
-
-)
+！[img](http://note.youdao.com/noteshare?id=7b34ea08b960c52970bfaa58e28b39f5)
