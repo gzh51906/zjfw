@@ -15,7 +15,7 @@ git仓库地址
 组员：汤宇 姚美利
 负责模块说明：
 ----------------
-*技术栈：vue2.x + vue-router + vue -cli + Vuex + axios + VantUI +  git + eleementui + node + mongodb
+*技术栈：vue2.x + vue-router + vue -cli + Vuex + axios  +  git + eleementui + node + mongodb
 
 *张俊：负责 项目搭建、项目分配、合并解决冲突 爬取数据  负责首页开发 传参到详情页面 构建node服务器
 
@@ -330,3 +330,6 @@ git仓库地址
 ---------------------
 项目页截图
 -----------
+!+[](
+
+)
